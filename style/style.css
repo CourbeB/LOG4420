@@ -9,7 +9,12 @@ body{
 }
 
 header {
+	overflow: hidden;
 	background-color: rgb(108,122,137);
+}
+
+header img{
+	float: left;
 }
 
 #logo{
@@ -17,7 +22,7 @@ header {
 }
 
 article, section{
-	margin: 10px;
+	margin: 100px;
 }
 
 h2{
@@ -43,10 +48,12 @@ ul.navigation li a{
 	background-color: rgb(108,122,137);
 	padding-right: 10px;
 	padding-left: 10px;
+	color: white;
 }
 
 ul.navigation a.active {
 	background-color: rgb(210,215,211);
+	color: black;
 }
 
 footer{
@@ -58,14 +65,23 @@ footer{
 /*Page Acceuil*/
 
 #start {
+	margin: 50px;
 	text-align: center;
+	background-color:  rgb(108,122,137);
+	-webkit-border-radius: 50px;
+	-moz-border-radius: 50px;
+	border-radius: 50px;
+}
+
+#start a{
+	background-color:  rgb(108,122,137);
 }
 
 /*Page tableau*/
 
 .stats{
 	position: absolute;
-	right: -10px;
+	right: -100px;
 	padding-left:20px; 
 	text-align: center;
 	background-color: rgb(189,195,199);
@@ -85,4 +101,9 @@ footer{
 .stats p{
 	background-color: rgb(189,195,199);
 	margin: 10px;
+}
+
+/*Page regles*/
+#regle img{
+	float: left;
 }

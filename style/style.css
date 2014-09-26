@@ -1,0 +1,88 @@
+/*TOUTES LES PAGES*/
+* {
+	background-color: rgb(238,238,238);
+	font-family: 'Open Sans Condensed', sans-serif;
+}
+
+body{
+	margin: 0px;
+}
+
+header {
+	background-color: rgb(108,122,137);
+}
+
+#logo{
+	margin: 10px;
+}
+
+article, section{
+	margin: 10px;
+}
+
+h2{
+	font-size: 100%;
+}
+
+a {
+	color: black;
+	font-size: 200%;
+	text-decoration: none;
+}
+
+ul.navigation{
+	background-color: rgb(108,122,137);
+}
+
+ul.navigation li{
+	display: inline;
+	margin-right: 25px;
+}
+
+ul.navigation li a{
+	background-color: rgb(108,122,137);
+	padding-right: 10px;
+	padding-left: 10px;
+}
+
+ul.navigation a.active {
+	background-color: rgb(210,215,211);
+}
+
+footer{
+	position: absolute;
+	bottom: 0px;
+	right: 10px;
+}
+
+/*Page Acceuil*/
+
+#start {
+	text-align: center;
+}
+
+/*Page tableau*/
+
+.stats{
+	position: absolute;
+	right: -10px;
+	padding-left:20px; 
+	text-align: center;
+	background-color: rgb(189,195,199);
+	-webkit-border-top-left-radius: 50px;
+	-webkit-border-bottom-left-radius: 50px;
+	-moz-border-radius-topleft: 50px;
+	-moz-border-radius-bottomleft: 50px;
+	border-top-left-radius: 50px;
+	border-bottom-left-radius: 50px;
+}
+
+.stats h1{
+	background-color: rgb(189,195,199);
+	margin: 10px;
+}
+
+.stats p{
+	background-color: rgb(189,195,199);
+	margin: 10px;
+}

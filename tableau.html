@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Tableau de bord</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<link rel="stylesheet" type="text/css" href="style/style.css">
+	</head>
+
+	<body>
+        <header>
+            <img src="img/zone42.png" width="60" height="58" style="background-color: rgb(108,122,137);" id="logo">
+            <nav>
+                <ul class="navigation">
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="tableau.html" class="active">Tableau de bord</a></li>
+                    <li><a href="regles.html">Règles</a></li>
+                </ul>
+            </nav>
+        </header>
+
+		<section class="stats">
+			<h1>Stats</h1>
+			<p>Pourcentage de questions réussites : 0%</p>
+			<p>Moyenne examen : 0 pts</p>
+        </section>
+		<section>
+            <h1>Questionnaires</h1>
+            <h2>Test rapide</h2>
+			<form action="questionRapide1.html">
+                <button type="submit">Démarrer</button>
+			</form>
+
+            <h2>Examen</h2>
+			<form action="questionExamen1.html">
+				<select>
+					<option>HTML</option>
+					<option>CSS</option>
+					<option>JS</option>
+				</select>
+				<input type="text" placeholder="Nombre de questions">
+				<button type="submit">Démarrer</button>
+			</form>
+        </section>
+
+		<footer>Courbe Baptiste et Vaillant Thomas</footer>
+	</body>
+</html>

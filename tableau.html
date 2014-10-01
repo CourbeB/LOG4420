@@ -19,26 +19,39 @@
             </nav>
         </header>
 
+		<section id="details" class="classDetails">
+        	<section>
+        		<h1>Derniers tests</h1>
+        		<ul>
+      	  			<li>Test du 24/09 : 30/30</li>
+        			<li>Test du 24/09 : 30/30</li>
+        			<li>Test du 24/09 : 30/30</li>
+        		</ul>
+        	</section>
+        </section>
+
 		<section class="stats">
 			<h1>Stats</h1>
 			<p>Pourcentage de questions réussites : 0%</p>
 			<p>Moyenne examen : 0 pts</p>
+			<a href="#details">Détails</a>
         </section>
-		<section>
+        
+		<section class="questionnaire">
             <h1>Questionnaires</h1>
             <h2>Test rapide</h2>
-			<form action="questionRapide1.html">
+			<form id="test" action="questionRapide1.html">
                 <button type="submit">Démarrer</button>
 			</form>
 
             <h2>Examen</h2>
-			<form action="questionExamen1.html">
+			<form id="exam" action="questionExamen1.html">
 				<select>
 					<option>HTML</option>
 					<option>CSS</option>
 					<option>JS</option>
 				</select>
-				<input type="text" placeholder="Nombre de questions">
+				<input type="text" placeholder="Nombre de questions"><br/>
 				<button type="submit">Démarrer</button>
 			</form>
         </section>

@@ -4,14 +4,14 @@
 		<title>Tableau de bord</title>
         <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-		<link rel="stylesheet" type="text/css" href="style/style.css">
+		<link rel="stylesheet" type="text/css" href="style/style.css"/>
 	</head>
 
 	<body>
         <header>
             <img src="img/zone42.png" width="60" height="58" style="background-color: rgb(108,122,137);" id="logo">
             <nav>
-                <ul class="navigation">
+                <ul>
                     <li><a href="index.html">Accueil</a></li>
                     <li><a href="tableau.html" class="active">Tableau de bord</a></li>
                     <li><a href="regles.html">Règles</a></li>
@@ -19,42 +19,47 @@
             </nav>
         </header>
 
-		<section id="details" class="classDetails">
-        	<section>
-        		<h1>Derniers tests</h1>
-        		<ul>
-      	  			<li>Test du 24/09 : 30/30</li>
-        			<li>Test du 24/09 : 30/30</li>
-        			<li>Test du 24/09 : 30/30</li>
-        		</ul>
-        	</section>
-        </section>
+        <div>
+            <section id="details" class="classDetails">
+                <a class="back" href="#"></a>
+                <section>
+                    <h1>Derniers tests</h1>
+                    <ul>
+                        <li>Test du 24/09 : 30/30</li>
+                        <li>Test du 24/09 : 30/30</li>
+                        <li>Test du 24/09 : 30/30</li>
+                    </ul>
+                </section>
+            </section>
 
-		<section class="stats">
-			<h1>Stats</h1>
-			<p>Pourcentage de questions réussites : 0%</p>
-			<p>Moyenne examen : 0 pts</p>
-			<a href="#details">Détails</a>
-        </section>
-        
-		<section class="questionnaire">
-            <h1>Questionnaires</h1>
-            <h2>Test rapide</h2>
-			<form id="test" action="questionRapide1.html">
-                <button type="submit">Démarrer</button>
-			</form>
+            <section class="stats">
+                <h1>Stats</h1>
+                <p>Pourcentage de questions réussites : 0%</p>
+                <p>Moyenne examen : 0 pts</p>
+                <a href="#details">Détails</a>
+            </section>
 
-            <h2>Examen</h2>
-			<form id="exam" action="questionExamen1.html">
-				<select>
-					<option>HTML</option>
-					<option>CSS</option>
-					<option>JS</option>
-				</select>
-				<input type="text" placeholder="Nombre de questions"><br/>
-				<button type="submit">Démarrer</button>
-			</form>
-        </section>
+            <section class="questionnaire">
+                <h1>Questionnaires</h1>
+                <h2>Test rapide</h2>
+                <form id="test" action="questionRapide1.html">
+                    <button type="submit">Démarrer</button>
+                </form>
+
+                <h2>Examen</h2>
+                <form id="exam" action="questionExamen1.html">
+                    <div id="exam_options">
+                        <select>
+                            <option>HTML</option>
+                            <option>CSS</option>
+                            <option>JS</option>
+                        </select>
+                        <input type="text" placeholder="Nombre de questions"/>
+                    </div>
+                    <button type="submit">Démarrer</button>
+                </form>
+            </section>
+        </div>
 
 		<footer>Courbe Baptiste et Vaillant Thomas</footer>
 	</body>

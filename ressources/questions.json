@@ -1,0 +1,125 @@
+{
+	"listeQuestions":{
+		"question1":{
+			"id": "1",
+			"domaine": "HTML",
+			"question":"Que veut dire HTML?",
+			"radioitem":[
+				{"value":"Hypertext Markup Language","id":"rep1"},
+				{"value":"Haute Tension Monitorée Linéairement","id":"rep2"}
+			],
+			"idVrai":"rep1"
+		},	
+	
+
+		"question2":{
+			"id": "2",
+			"domaine": "HTML",
+			"question":"La balise body est-elle obligatoire en HTML 5 ?",
+			"radioitem":[
+				{"value":"Oui","id":"rep1"},
+				{"value":"Non","id":"rep2"}
+			],
+			"idVrai":"rep2"
+		},
+
+
+		"question3":{
+			"id": "3",
+			"domaine": "HTML",
+			"question":"Qui fait les standarts du Web?",
+			"radioitem":[
+				{"value":"Mozilla","id":"rep1"},
+				{"value":"Le World Wide Web Consortium","id":"rep2"},
+				{"value":"Google","id":"rep3"}
+			],
+			"idVrai":"rep2"
+		},
+
+
+		"question4":{
+			"id": "4",
+			"domaine": "HTML",
+			"question":"Quelle est la balise est nécessaire pour faire un break?",
+			"radioitem":[
+				{"value":"<break>","id":"rep1"},
+				{"value":"<br>","id":"rep2"},
+				{"value":"<lb>","id":"rep3"}
+			],
+			"idVrai":"rep2"
+		},
+
+
+		"question5":{
+			"id": "5",
+			"domaine": "CSS",
+			"question":"CSS3 possède un selecteur pour permet de sélectionner un parent?",
+			"radioitem":[
+				{"value":"Oui","id":"rep1"},
+				{"value":"Non","id":"rep2"}
+			],
+			"idVrai":"rep1"
+		},
+
+
+		"question6":{
+			"id": "6",
+			"domaine": "CSS",
+			"question":"Comment fait-on référence à une fichier CSS externe dans une page HTML?",
+			"radioitem":[
+				{"value":"<stylesheet>mystyle.css</stylesheet>","id":"rep1"},
+				{"value":"<link rel=\"stylesheet\" type=\"text/css\" href=\"mystyle.css\">","id":"rep2"}
+			],
+			"idVrai":"rep2"
+		},
+
+
+		"question7":{
+			"id": "7",
+			"domaine": "CSS",
+			"question":"Quelle balise utilise-t-on pour définir un style interne à la page?",
+			"radioitem":[
+				{"value":"<css>","id":"rep1"},
+				{"value":"<style>","id":"rep2"}
+			],
+			"idVrai":"rep2"
+		},
+
+
+		"question8":{
+			"id": "8",
+			"domaine": "JS",
+			"question":"Comment insérer du code JS dans une page HTML?",
+			"radioitem":[
+				{"value":"<js>","id":"rep1"},
+				{"value":"<script>","id":"rep2"}
+			],
+			"idVrai":"rep2"
+		},
+
+
+		"question9":{
+			"id": "9",
+			"domaine": "JS",
+			"question":"Comment commenter du code JS?",
+			"radioitem":[
+				{"value":"# un commentaire","id":"rep1"},
+				{"value":"/* un commentaire*/","id":"rep2"}
+			],
+			"idVrai":"rep2"
+		},
+
+		"question10":{
+			"id": "10",
+			"domaine": "JS",
+			"question":"Comment insérer un fichier JS dans une page HTML?",
+			"radioitem":[
+				{"value":"<script langage=\"javascript\" src=\"xxx.js\">","id":"rep1"},
+				{"value":"<script type=\"text/javascript\" src=\"xxx.js\">","id":"rep2"}
+			],
+			"idVrai":"rep2"
+		},
+
+	}
+	
+}

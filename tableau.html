@@ -6,6 +6,20 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="style/style.css"/>
         <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/QuizBd.js"></script>
+        <script type="text/javascript" src="js/QuizUser.js"></script>
+        <script type="text/javascript">
+            var bd;
+            var user;
+
+            $(function () {
+                $.getJSON("ressources/questions.json", function (data) {
+                    bd = new QuizBd(data);
+                    user = new QuizUser();
+                });
+            });
+        </script>
 	</head>
 
 	<body>

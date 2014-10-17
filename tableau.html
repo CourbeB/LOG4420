@@ -12,11 +12,30 @@
         <script type="text/javascript">
             var bd;
             var user;
+            var nbQuestions = 0;
+            var domainesChoisis = [];
 
             $(function () {
                 $.getJSON("ressources/questions.json", function (data) {
                     bd = new QuizBd(data);
                     user = new QuizUser();
+
+                    var domaines = [];
+                    domaines = bd.getDomaines();
+                    $.each(domaines, function(i, val){
+                        $("#exam_options > select").append('<option value="'+val+'">'+val);
+                    });
+
+                    $("#exam").submit(function(event){
+                        domainesChoisis = $("#exam_options > select").val();
+                        nbQuestions = bd.getNbQuestions(domainesChoisis);
+                        if($("#exam_options > input").val() <=nbQuestions)
+                            return;
+                        $("#exam_options > input").css("border-color","red");
+                        alert("Nombres de questions choisies trop grand, nombre max :" + nbQuestions);
+                        event.preventDefault();
+                    });
+
                 });
             });
         </script>
@@ -57,18 +76,14 @@
             <section class="questionnaire">
                 <h1>Questionnaires</h1>
                 <h2>Test rapide</h2>
-                <form id="test" action="questionRapide1.html">
+                <form id="test" action="questionRapide.html">
                     <button type="submit">Démarrer</button>
                 </form>
 
                 <h2>Examen</h2>
-                <form id="exam" action="questionExamen1.html">
+                <form id="exam" method="POST" action="questionExamen.html">
                     <div id="exam_options">
-                        <select>
-                            <option>HTML</option>
-                            <option>CSS</option>
-                            <option>JS</option>
-                        </select>
+                        <select size="1" multiple="multiple"></select>
                         <input type="text" placeholder="Nombre de questions"/>
                     </div>
                     <button type="submit">Démarrer</button>

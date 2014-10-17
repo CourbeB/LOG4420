@@ -2,7 +2,8 @@ function QuizUser () {
 //    this.questionsPassees = this.getVar("questionsPassees");
     this.examensPasses = this.getVar("examensPasses");
 
-    if (this.questionsPassees == null) this.questionsPassees = [];
+    //if (this.questionsPassees == null) this.questionsPassees = [];
+    this.questionsPassees = [];
     if (this.examensPasses == null) this.examensPasses = [];
 }
 
@@ -34,6 +35,19 @@ QuizUser.prototype = {
             "id": id,
             "reussie": reussie
         });
+    },
+
+    getIdsQuestionsPassees: function () {
+        var ids = [];
+        for (var id in this.questionsPassees) {
+            ids.push(this.questionsPassees[id].id);
+        }
+
+        return ids;
+    },
+
+    getNbQuestionsPassees: function () {
+        return this.questionsPassees.length;
     },
 
     addExamen: function (note, nbQuestions) {

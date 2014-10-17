@@ -8,13 +8,13 @@ function QuizBd (json) {
         this.questions[json.listeQuestions[idQ].id] = new QuizQuestion(
             json.listeQuestions[idQ].id,
             json.listeQuestions[idQ].domaine,
-            json.listeQuestions[idQ].question);
+            safe_tags(json.listeQuestions[idQ].question));
 
         // Ajout des réponses
         for (var idR in json.listeQuestions[idQ].reponses) {
             this.questions[json.listeQuestions[idQ].id].addReponse(
                 json.listeQuestions[idQ].reponses[idR].id,
-                json.listeQuestions[idQ].reponses[idR].value,
+                safe_tags(json.listeQuestions[idQ].reponses[idR].value),
                 json.listeQuestions[idQ].reponses[idR].id == json.listeQuestions[idQ].idVrai
             );
         }
@@ -56,6 +56,9 @@ QuizBd.prototype = {
     },
 
     getRandomQuestion: function (domaines, questionsPassees) {
+        if (domaines == null) // Si pas de domaines passés, il s'agit de tous les domaines
+            domaines = this.getDomaines();
+
         var questions = this.getQuestions(domaines);
         var questionsRestantes = [];
 
@@ -75,6 +78,7 @@ function QuizQuestion (_id, _domaine, _question) {
     this.id = _id;
     this.domaine = _domaine;
     this.question = _question;
+    this.idBonneReponse = null;
 
     this.reponses = {};
 }
@@ -82,6 +86,8 @@ function QuizQuestion (_id, _domaine, _question) {
 QuizQuestion.prototype = {
     addReponse: function (id, reponse, bonne) {
         this.reponses[id] = new QuizReponse(id, reponse, bonne);
+        if (bonne)
+            this.idBonneReponse = id;
     }
 };
 
@@ -90,4 +96,9 @@ function QuizReponse (_id, _reponse, _bonne) {
     this.id = _id;
     this.reponse = _reponse;
     this.bonne = _bonne;
+}
+
+/* Fonctions utiles */
+function safe_tags(str) {
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
 }

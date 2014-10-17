@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Test rapide</title>
+        <link href='http://fonts.googleapis.com/css?family=Open+Sans+Condensed:300' rel='stylesheet' type='text/css'>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <link rel="stylesheet" type="text/css" href="style/style.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/QuizBd.js"></script>
+        <script type="text/javascript" src="js/QuizUser.js"></script>
+        <script type="text/javascript">
+            var bd;
+            var user;
+            var form;
+            var question;
+
+            $(function () {
+                form = $("section.question > form");
+
+                $.getJSON("ressources/questions.json", function (data) {
+                    bd = new QuizBd(data);
+                    user = new QuizUser();
+
+                    afficherNouvelleQuestion();
+                });
+
+                form.submit(function (event) {
+                    event.preventDefault();
+
+                    if ($("button[type=submit]", form).html() == "Corriger") {
+                        corrigerQuestion();
+                        $("button[type=submit]", form).html("Question suivante");
+                    }
+                    else {
+                        afficherNouvelleQuestion();
+                        $("button[type=submit]", form).html("Corriger");
+                    }
+                });
+            });
+
+            function afficherNouvelleQuestion () {
+                question = bd.getRandomQuestion(null, user.getIdsQuestionsPassees());
+
+                $("> h1", form).html("Question " + (user.getNbQuestionsPassees()+1)).data("theme", question.domaine);
+                $("> h1 + div > p", form).html(question.question);
+
+                $("> h1 + div > label", form).remove();
+                $.each(question.reponses, function () {
+                    $("> h1 + div", form).append('<label><input type="radio" name="rep" value="'+ this.id +'"/> '+ this.reponse +'</label>');
+                });
+            }
+
+            function corrigerQuestion () {
+                $("input[type=radio]", form).prop("disabled", true);
+                $("input[type=radio]", form).each(function () {
+                    $(this).parent().addClass(question.reponses[$(this).val()].bonne ? "repVraie" : "repFausse");
+                });
+
+                var reussie = $("input[type=radio][value='"+ question.idBonneReponse +"']", form).prop("checked");
+                user.addQuestion(question.id, reussie);
+            }
+        </script>
+	</head>
+
+	<body>
+        <header>
+            <img src="img/zone42.png" width="60" height="58" style="background-color: rgb(108,122,137);" id="logo">
+            <nav>
+                <ul>
+                    <li><a href="index.html">Accueil</a></li>
+                    <li><a href="tableau.html">Tableau de bord</a></li>
+                    <li><a href="regles.html">Règles</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <div>
+            <section id="details" class="classDetails">
+                <a class="back" href="#"></a>
+                <section>
+                    <h1>Derniers tests</h1>
+                    <ul>
+                        <li>Test du 24/09 : 30/30</li>
+                        <li>Test du 24/09 : 30/30</li>
+                        <li>Test du 24/09 : 30/30</li>
+                    </ul>
+                </section>
+            </section>
+
+            <section class="stats">
+                <h1>Stats</h1>
+                <p>Pourcentage de questions réussites : 0%</p>
+                <p>Moyenne examen : 0 pts</p>
+                <a href="#details">Détails</a>
+            </section>
+
+            <section class="question">
+                <form>
+                    <h1 data-theme="HTML">Question #</h1>
+                    <div>
+                        <p>Intitulé de la question</p>
+
+
+                    </div>
+
+                    <nav>
+                        <a href="tableau.html" class="button">Retour au tableau de bord</a>
+                        <button type="submit">Corriger</button>
+                    </nav>
+                </form>
+            </section>
+        </div>
+
+		<footer>Courbe Baptiste et Vaillant Thomas</footer>
+	</body>
+</html>

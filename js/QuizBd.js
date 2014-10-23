@@ -1,4 +1,9 @@
-/* BD */
+/**
+ * Classe QuizBd
+ * Gère la liste des questions
+ * @param json Base de données des questions (tableau associatif)
+ * @constructor
+ */
 function QuizBd (json) {
     this.questions = {};
     this.domaines = {};
@@ -28,6 +33,10 @@ function QuizBd (json) {
 }
 
 QuizBd.prototype = {
+    /**
+     * Retourne les domaines de questions disponibles
+     * @returns {Array}
+     */
     getDomaines: function () {
         var cles = [];
         for (var cle in this.domaines) {
@@ -37,6 +46,11 @@ QuizBd.prototype = {
         return cles;
     },
 
+    /**
+     * Retourne le nombre de questions des domaines passés en paramètre
+     * @param domaines
+     * @returns {number}
+     */
     getNbQuestions: function (domaines) {
         var nb = 0;
         for (var k in domaines) {
@@ -46,6 +60,11 @@ QuizBd.prototype = {
         return nb;
     },
 
+    /**
+     * Retourne toutes les questions des domaines passés en paramètre
+     * @param domaines
+     * @returns {Array}
+     */
     getQuestions:  function (domaines) {
         var questions = [];
         for (var k in domaines) {
@@ -55,6 +74,12 @@ QuizBd.prototype = {
         return questions;
     },
 
+    /**
+     * Retourne une question au hasard parmis les domaines passés en paramètre, sans retourner une question déjà posée
+     * @param domaines Array|null Si null, tous les domaines sont pris en compte
+     * @param questionsPassees IDs des questions déjà posées
+     * @returns QuizQuestion
+     */
     getRandomQuestion: function (domaines, questionsPassees) {
         if (domaines == null) // Si pas de domaines passés, il s'agit de tous les domaines
             domaines = this.getDomaines();
@@ -73,7 +98,13 @@ QuizBd.prototype = {
     }
 };
 
-/* QUESTION */
+/**
+ * Classe QuizQuestion
+ * @param _id
+ * @param _domaine
+ * @param _question
+ * @constructor
+ */
 function QuizQuestion (_id, _domaine, _question) {
     this.id = _id;
     this.domaine = _domaine;
@@ -84,6 +115,12 @@ function QuizQuestion (_id, _domaine, _question) {
 }
 
 QuizQuestion.prototype = {
+    /**
+     * Ajoute une réponse à la question
+     * @param id
+     * @param reponse
+     * @param bonne
+     */
     addReponse: function (id, reponse, bonne) {
         this.reponses[id] = new QuizReponse(id, reponse, bonne);
         if (bonne)
@@ -91,14 +128,25 @@ QuizQuestion.prototype = {
     }
 };
 
-/* REPONSE */
+/**
+ * Classe QuizReponse
+ * @param _id
+ * @param _reponse
+ * @param _bonne
+ * @constructor
+ */
 function QuizReponse (_id, _reponse, _bonne) {
     this.id = _id;
     this.reponse = _reponse;
     this.bonne = _bonne;
 }
 
-/* Fonctions utiles */
+/* ### Fonctions utiles ### */
+/**
+ * Remplace les caractères spéciaux HTML <, > et & par leur code XML
+ * @param str
+ * @returns {XML|string}
+ */
 function safe_tags(str) {
     return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
 }

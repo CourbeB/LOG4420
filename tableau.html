@@ -9,34 +9,52 @@
         <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script type="text/javascript" src="js/QuizBd.js"></script>
         <script type="text/javascript" src="js/QuizUser.js"></script>
+        <script type="text/javascript" src="js/quiz.js"></script>
         <script type="text/javascript">
             var bd;
             var user;
             var nbQuestions = 0;
             var domainesChoisis = [];
+            var stats;
 
             $(function () {
+                stats = $("section.stats");
+                user = new QuizUser();
+
+                // Chargement BD
                 $.getJSON("ressources/questions.json", function (data) {
                     bd = new QuizBd(data);
-                    user = new QuizUser();
 
                     var domaines = [];
                     domaines = bd.getDomaines();
                     $.each(domaines, function(i, val){
-                        $("#exam_options > select").append('<option value="'+val+'">'+val);
+                        $("#exam_options > select").append('<option value="'+val+'">'+val+'</option>');
                     });
-
-                    $("#exam").submit(function(event){
-                        domainesChoisis = $("#exam_options > select").val();
-                        nbQuestions = bd.getNbQuestions(domainesChoisis);
-                        if($("#exam_options > input").val() <=nbQuestions)
-                            return;
-                        $("#exam_options > input").css("border-color","red");
-                        alert("Nombres de questions choisies trop grand, nombre max :" + nbQuestions);
-                        event.preventDefault();
-                    });
-
                 });
+
+                // Formulaire paramètres examen
+                $("#exam").submit(function(event){
+                    domainesChoisis = $("#exam_options > select").val();
+                    nbQuestions = bd.getNbQuestions(domainesChoisis);
+                    if($("#exam_options > input").val() <=nbQuestions)
+                        return;
+                    $("#exam_options > input").css("border-color","red");
+                    alert("Nombres de questions choisies trop grand, nombre max :" + nbQuestions);
+                    event.preventDefault();
+                });
+
+                // Détails stats
+                $("#details_link").click(function() {
+                    afficherHistoExamens(user, $("#details"));
+                });
+
+                // RaZ stats
+                $("#raz_link").click(function() {
+                    user.raz();
+                    afficherStats(user, stats, false);
+                });
+
+                afficherStats(user, stats, false);
             });
         </script>
 	</head>
@@ -57,20 +75,20 @@
             <section id="details" class="classDetails">
                 <a class="back" href="#"></a>
                 <section>
-                    <h1>Derniers tests</h1>
+                    <h1>Derniers examens</h1>
                     <ul>
-                        <li>Test du 24/09 : 30/30</li>
-                        <li>Test du 24/09 : 30/30</li>
-                        <li>Test du 24/09 : 30/30</li>
+
                     </ul>
                 </section>
             </section>
 
             <section class="stats">
                 <h1>Stats</h1>
-                <p>Pourcentage de questions réussites : 0%</p>
-                <p>Moyenne examen : 0 pts</p>
-                <a href="#details">Détails</a>
+                <ul>
+
+                </ul>
+
+                <a href="#details" id="details_link">Détails</a> - <a href="#" id="raz_link">RaZ</a>
             </section>
 
             <section class="questionnaire">
@@ -81,10 +99,10 @@
                 </form>
 
                 <h2>Examen</h2>
-                <form id="exam" method="POST" action="questionExamen.html">
+                <form id="exam" method="get" action="questionExamen.html">
                     <div id="exam_options">
-                        <select size="1" multiple="multiple"></select>
-                        <input type="text" placeholder="Nombre de questions"/>
+                        <select size="1" multiple="multiple" name="domaine"></select>
+                        <input type="text" name="nbQuestions" placeholder="Nombre de questions"/>
                     </div>
                     <button type="submit">Démarrer</button>
                 </form>

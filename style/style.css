@@ -173,13 +173,11 @@ footer{
 	-webkit-transition: opacity 400ms ease-in-out;
 	-moz-transition: opacity 400ms ease-in-out;
 	transition: opacity 400ms ease-in-out;
-	pointer-events: none;
 }
 
 .classDetails:target{
 	visibility: visible;
 	opacity: 1;
-	pointer-events:auto;
 }
 
 .classDetails > section {

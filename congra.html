@@ -6,6 +6,16 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 		<link rel="stylesheet" type="text/css" href="style/style.css"/>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script type="text/javascript" src="js/QuizUser.js"></script>
+        <script type="text/javascript">
+            $(function () {
+                var user = new QuizUser();
+
+                if (user.examensPasses.length > 0)
+                    $("p.resultat").html("Vous avez obtenu la note de "+ user.examensPasses[user.examensPasses.length-1].note*100 +" %");
+            });
+        </script>
 	</head>
 
 	<body>
@@ -24,7 +34,7 @@
             <section>
                 <h1>Félicitations</h1>
                 <p>Vous avez fini votre examen</p>
-                <p>Vous avez obtenu la note de 2/2</p>
+                <p class="resultat"></p>
 
                 <a href="tableau.html">Retour au tableau de bord</a>
             </section>

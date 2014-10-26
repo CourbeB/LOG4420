@@ -121,6 +121,15 @@ QuizUser.prototype = {
         this.setVar("examensPasses", this.examensPasses);
     },
 
+    abortExamen: function() {
+        this.examensPasses.push({
+            "date": new Date().toLocaleString(),
+            "note": 0
+        });
+
+        this.setVar("examensPasses", this.examensPasses);
+    },
+
     /**
      * Enregistre la note des tests rapides
      */

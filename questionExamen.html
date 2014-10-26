@@ -17,6 +17,7 @@
         var stats;
         var question;
         var params;
+        var abort = true;
 
         $(function () {
             form = $("section.question > form");
@@ -47,6 +48,7 @@
                 // Examen terminé (on sauvegarde le score)
                 else if ($("button[type=submit]", form).html() == "Terminer") {
                     user.saveExamen();
+                    abort = false;
                     window.location.href = "congra.html";
                 }
                 // Nouvelle question
@@ -67,6 +69,18 @@
             $("#raz_link").click(function() {
                 user.raz();
                 afficherStats(user, stats, true);
+            });
+
+            // Détection changement de page pour mettre 0 à l'exam
+            $(window).bind("beforeunload", function (event) {
+                if (abort) {
+                    return "Attention si vous quittez cette page vous aurez 0 à votre examen ! Êtes-vous sûr de d'abandonner ?";
+                }
+            });
+            $(window).bind("unload", function (event) {
+                if (abort) {
+                    user.abortExamen();
+                }
             });
 
             afficherStats(user, stats, true);

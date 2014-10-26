@@ -43,7 +43,7 @@ function afficherNouvelleQuestion (bd, user, form, domaines, nbtotal) {
 
     $("> h1 + div > label", form).remove();
     $.each(question.reponses, function () {
-        $("> h1 + div", form).append('<label><input type="radio" name="rep" value="'+ this.id +'"/> '+ this.reponse +'</label>');
+        $("> h1 + div", form).append('<label class="reponses"><input type="radio" name="rep" value="'+ this.id +'"/> '+ this.reponse +'</label>');
     });
 
     return question;

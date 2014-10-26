@@ -208,11 +208,17 @@ footer{
 }
 
 label.repVraie {
-    background-color: greenyellow;
+    color: green;
+    font-weight: bold;
 }
 
 label.repFausse {
-    background-color: indianred;
+    color: indianred;
+    font-weight: bold;
+}
+
+.reponses{
+    display: block;
 }
 
 

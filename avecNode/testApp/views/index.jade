@@ -1,5 +1,20 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+    header
+      img#logo(src='/images/zone42.png', width='60', height='58', style='background-color: rgb(108,122,137);')
+      nav
+        ul
+          li
+            a.active(href='index.html') Accueil
+          li
+            a(href='tableau.html') Tableau de bord
+          li
+            a(href='regles.html') Règles
+    div
+      article
+        h1 Description:
+        p
+          | Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mauris ipsum, volutpat ut nisi ut, luctus laoreet urna. Mauris efficitur tempor finibus. Etiam mollis massa eget dui rutrum dictum. Duis quis tellus sit amet magna egestas maximus. Pellentesque eget orci nec nulla pulvinar mollis sed non neque. Nullam aliquam mi elit, non venenatis magna fringilla in. Praesent sit amet tincidunt odio. Vestibulum a neque non erat consectetur fringilla. Aliquam vel justo leo. Aliquam erat volutpat. Nunc ut nisl vehicula, sodales metus vel, porta felis. Curabitur dignissim tincidunt ex vitae pulvinar. Phasellus sodales lectus in tempus elementum.
+    a#start_button.button(href='tableau.html') Commencer
+    footer Courbe Baptiste et Vaillant Thomas

@@ -48,6 +48,15 @@ block head
       afficherStats(user, stats, false);
     });
 
+block nav
+ ul
+     li
+       a(href='/') Accueil
+     li
+       a.active(href='/tableau') Tableau de bord
+     li
+       a(href='/regles') Règles
+
 block content
   div
     section#details.classDetails

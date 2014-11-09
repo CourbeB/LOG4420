@@ -1,6 +1,6 @@
-extends layout
+extends details
 
-block head
+block headDetails
   script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
   script(type='text/javascript', src='/javascripts/QuizBd.js')
   script(type='text/javascript', src='/javascripts/QuizUser.js')
@@ -48,7 +48,7 @@ block head
       afficherStats(user, stats, false);
     });
 
-block nav
+block navDetails
  ul
      li
        a(href='/') Accueil
@@ -57,23 +57,11 @@ block nav
      li
        a(href='/regles') Règles
 
-block content
-  div
-    section#details.classDetails
-        a.back(href='#')
-        section
-          h1 Derniers examens
-          ul
-      section.stats
-        h1 Stats
-        ul
-        a#details_link(href='#details') Détails
-        | -
-        a#raz_link(href='#') RaZ
+block contentDetails
       section.questionnaire
         h1 Questionnaires
         h2 Test rapide
-        form#test(action='questionRapide.html')
+        form#test(action='question')
           button(type='submit') Démarrer
         h2 Examen
         form#exam(method='post', action='questionExamen')

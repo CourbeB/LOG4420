@@ -1,5 +1,15 @@
 extends layout
 
+block nav
+	ul
+		li
+			a(href='/') Accueil
+		li
+			a(href='/tableau') Tableau de bord
+		li
+			a.active(href='/regles') Règles
+
+
 block content
 	div
 		article#regle

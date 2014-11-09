@@ -1,6 +1,6 @@
 {
-  "name": "testApp",
-  "version": "0.0.0",
+  "name": "quizzApp",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "start": "node ./bin/www"

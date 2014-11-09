@@ -1,8 +1,9 @@
-extends layout
+extends details
+- var modeExamen = false
 
-block head
+block headDetails
 
-block nav
+block navDetails
     ul
         li
           a(href='/') Accueil
@@ -10,3 +11,19 @@ block nav
           a(href='/tableau') Tableau de bord
         li
           a(href='/regles') Règles
+
+block contentDetails
+    section.question
+      form
+        if modeExamen
+          h1(data-theme='HTML') Question #/#
+        else
+          h1(data-theme='HTML') Question #
+        div
+            p Intitulé de la question
+          nav
+            if modeExamen
+              a.button(href='congra') Abandon
+            else
+              a.button(href='tableau') Retour au tableau de bord
+            button(type='submit') Corriger

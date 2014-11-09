@@ -1,0 +1,93 @@
+extends layout
+
+block head
+	script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+  script(type='text/javascript', src='/javascripts/QuizBd.js')
+    script(type='text/javascript', src='/javascripts/QuizUser.js')
+    script(type='text/javascript', src='/javascripts/quiz.js')
+    script(type='text/javascript')
+      var bd;
+      var user;
+      var form;
+      var stats;
+      var question;
+      var params;
+      var abort = true;
+      $(function () {
+      form = $("section.question > form");
+      stats = $("section.stats");
+      params = getExamParams();
+      user = new QuizUser();
+      // Chargement de la BD
+      $.getJSON("ressources/questions.json", function (data) {
+      bd = new QuizBd(data);
+      question = afficherNouvelleQuestion(bd, user, form, params.domaines, params.nbQuestions);
+      });
+      // Formulaire question
+      form.submit(function (event) {
+      event.preventDefault();
+      // Correction
+      if ($("button[type=submit]", form).html() == "Corriger") {
+      corrigerQuestion(question, form);
+      if (user.getNbQuestionsPassees() < params.nbQuestions)
+      $("button[type=submit]", form).html("Question suivante");
+      else
+      $("button[type=submit]", form).html("Terminer");
+      }
+      // Examen terminé (on sauvegarde le score)
+      else if ($("button[type=submit]", form).html() == "Terminer") {
+      user.saveExamen();
+      abort = false;
+      window.location.href = "congra.html";
+      }
+      // Nouvelle question
+      else {
+      question = afficherNouvelleQuestion(bd, user, form, params.domaines, params.nbQuestions);
+      $("button[type=submit]", form).html("Corriger");
+      }
+      afficherStats(user, stats, true);
+      });
+      // Détails stats
+      $("#details_link").click(function() {
+      afficherHistoExamens(user, $("#details"));
+      });
+      // RaZ stats
+      $("#raz_link").click(function() {
+      user.raz();
+      afficherStats(user, stats, true);
+      });
+      // Détection changement de page pour mettre 0 à l'exam
+      $(window).bind("beforeunload", function (event) {
+      if (abort) {
+      return "Attention si vous quittez cette page vous aurez 0 à votre examen ! Êtes-vous sûr de d'abandonner ?";
+      }
+      });
+      $(window).bind("unload", function (event) {
+      if (abort) {
+      user.abortExamen();
+      }
+      });
+      afficherStats(user, stats, true);
+      });
+
+block content
+	div
+    section#details.classDetails
+        a.back(href='#')
+        section
+          h1 Derniers examens
+          ul
+      section.stats
+        h1 Stats
+        ul
+        a#details_link(href='#details') Détails
+        | -
+        a#raz_link(href='#') RaZ
+      section.question
+        form
+          h1(data-theme='HTML') Question #/#
+          div
+            p Intitulé de la question
+          nav
+            a.button(href='congra.html') Abandon
+            button(type='submit') Corriger

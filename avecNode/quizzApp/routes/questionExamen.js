@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-require('./user');
+var QuizUser = require('../lib/user');
 
 /* Route POST (traitement du formulaire de choix des thèmes) */
 router.post('/questionExamen', function(req, res) {
@@ -12,7 +12,7 @@ router.post('/questionExamen', function(req, res) {
 
 /* Route GET */
 router.get('/questionExamen', function(req, res) {
-    res.render('question');
+   // res.render('question');
 });
 
 module.exports = router;

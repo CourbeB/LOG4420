@@ -76,7 +76,7 @@ block content
         form#test(action='questionRapide.html')
           button(type='submit') Démarrer
         h2 Examen
-        form#exam(method='get', action='questionExamen.html')
+        form#exam(method='post', action='questionExamen')
           #exam_options
             select(size='1', multiple='multiple', name='domaine')
             input(type='text', name='nbQuestions', placeholder='Nombre de questions')

@@ -152,3 +152,5 @@ QuizUser.prototype = {
         return Math.round(moyenne*10000) / 100;
     }
 };
+
+module.exports = QuizUser;

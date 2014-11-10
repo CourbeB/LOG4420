@@ -6,50 +6,19 @@
  */
 function QuizUser (_session) {
     this.session = _session;
-    this.examensPasses = this.getVar("examensPasses");
-    this.noteTestsRapides = this.getVar("noteTestsRapides");
 
-    if (this.examensPasses == null) this.examensPasses = [];
-    if (this.noteTestsRapides == null) this.noteTestsRapides = {
+    if (this.session.noteTestsRapides == null) this.session.noteTestsRapides = {
         reussies: 0,
         totales: 0
     };
-
-    this.questionsPassees = [];
 }
 
 QuizUser.prototype = {
     /**
-     * Retourne une variable stockée dans la session
-     * @param variable
-     * @returns {*}
-     */
-    getVar: function (variable) {
-        return this.session[variable];
-    },
-
-    /**
-     * Stocke une variable dans la session
-     * @param variable
-     * @param value
-     */
-    setVar: function (variable, value) {
-        this.session[variable] = value;
-    },
-
-    /**
-     * Efface le LocalStorage
+     * Efface toutes les données de session
      */
     raz: function () {
         this.session = {};
-
-        this.examensPasses = [];
-        this.noteTestsRapides = {
-            reussies: 0,
-            totales: 0
-        };
-
-        this.questionsPassees = [];
     },
 
     /**
@@ -58,7 +27,7 @@ QuizUser.prototype = {
      * @param reussie
      */
     addQuestion: function (id, reussie) {
-        this.questionsPassees.push({
+        this.session.questionsPassees.push({
             "id": id,
             "reussie": reussie
         });
@@ -70,9 +39,9 @@ QuizUser.prototype = {
      */
     addQuestionTestRapide: function(reussie) {
         if (reussie)
-            this.noteTestsRapides.reussies++;
+            this.session.noteTestsRapides.reussies++;
 
-        this.noteTestsRapides.totales++;
+        this.session.noteTestsRapides.totales++;
     },
 
     /**
@@ -81,8 +50,8 @@ QuizUser.prototype = {
      */
     getIdsQuestionsPassees: function () {
         var ids = [];
-        for (var id in this.questionsPassees) {
-            ids.push(this.questionsPassees[id].id);
+        for (var id in this.session.questionsPassees) {
+            ids.push(this.session.questionsPassees[id].id);
         }
 
         return ids;
@@ -93,7 +62,7 @@ QuizUser.prototype = {
      * @returns {Number}
      */
     getNbQuestionsPassees: function () {
-        return this.questionsPassees.length;
+        return this.session.questionsPassees ? this.session.questionsPassees.length : 0;
     },
 
     /**
@@ -102,8 +71,8 @@ QuizUser.prototype = {
      */
     getNbQuestionsReussies: function () {
         var nb = 0;
-        for (id in this.questionsPassees) {
-            if (this.questionsPassees[id].reussie) {
+        for (id in this.session.questionsPassees) {
+            if (this.session.questionsPassees[id].reussie) {
                 nb++;
             }
         }
@@ -112,31 +81,39 @@ QuizUser.prototype = {
     },
 
     /**
-     * Enregistre le résultat de l'examen
+     * Démarre un examen
+     * @param domaines
+     * @param nbQuestions
      */
-    saveExamen: function () {
-        this.examensPasses.push({
-            "date": new Date().toLocaleString(),
-            "note": this.getNbQuestionsReussies()/this.getNbQuestionsPassees()
-        });
-
-        this.setVar("examensPasses", this.examensPasses);
+    startExam: function (domaines, nbQuestions) {
+        this.session.examEnCours = {
+            "domaines": domaines,
+            "nbQuestions": nbQuestions
+        };
     },
 
-    abortExamen: function() {
-        this.examensPasses.push({
-            "date": new Date().toLocaleString(),
-            "note": 0
-        });
-
-        this.setVar("examensPasses", this.examensPasses);
+    getExam: function () {
+        return this.session.examEnCours;
     },
 
     /**
-     * Enregistre la note des tests rapides
+     * Enregistre le résultat de l'examen
      */
-    saveTestRapide: function() {
-        this.setVar("noteTestsRapides", this.noteTestsRapides);
+    saveExamen: function () {
+        this.session.examensPasses.push({
+            "date": new Date().toLocaleString(),
+            "note": this.getNbQuestionsReussies()/this.getNbQuestionsPassees()
+        });
+    },
+
+    /**
+     * Abandonne l'examen en cours
+     */
+    abortExamen: function() {
+        this.session.examensPasses.push({
+            "date": new Date().toLocaleString(),
+            "note": 0
+        });
     },
 
     /**
@@ -145,8 +122,8 @@ QuizUser.prototype = {
      */
     getMoyenneExamens: function () {
         var moyenne = 0;
-        for (id in this.examensPasses) {
-            moyenne += this.examensPasses[id].note / this.examensPasses.length;
+        for (id in this.session.examensPasses) {
+            moyenne += this.session.examensPasses[id].note / this.session.examensPasses.length;
         }
 
         return Math.round(moyenne*10000) / 100;

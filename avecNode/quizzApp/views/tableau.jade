@@ -67,5 +67,7 @@ block contentDetails
         form#exam(method='post', action='questionExamen')
           #exam_options
             select(size='1', multiple='multiple', name='domaine')
+                option(value="HTML") HTML
+                option(value="CSS") CSS
             input(type='text', name='nbQuestions', placeholder='Nombre de questions')
           button(type='submit') Démarrer

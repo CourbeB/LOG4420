@@ -16,11 +16,11 @@ block contentDetails
     section.question
       form
         if modeExamen
-          h1(data-theme='HTML') Question #/#
+          h1(data-theme='#{question.domaine}') Question #{noQuestion}/#{nbQuestions}
         else
-          h1(data-theme='HTML') Question #
+          h1(data-theme='#{question.domaine}') Question #{noQuestion}
         div
-            p Intitulé de la question
+            p #{question.question}
           nav
             if modeExamen
               a.button(href='congra') Abandon

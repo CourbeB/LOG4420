@@ -1,24 +1,5 @@
 extends layout
 
-block head
-	script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-  	script(type='text/javascript', src='/javascripts/QuizUser.js')
-    script(type='text/javascript')
-      $(function () {
-      var user = new QuizUser();
-      var note = user.examensPasses[user.examensPasses.length-1].note*100;
-      if (user.examensPasses.length > 0)
-      $("p.resultat").html("Vous avez obtenu la note de "+ note +" %. ");
-      if(note<=25)
-      $("p.resultat").append("Il fait vraiment travailler plus.");
-      if(note>25 && note<= 50)
-      $("p.resultat").append("Peut mieux faire, il faut continuer à travailler.");
-      if(note>50 && note<= 75)
-      $("p.resultat").append("Continue ainsi!");
-      if(note>75 && note<= 100)
-      $("p.resultat").append("Bon travail!");
-      });
-
 block nav
     ul
         li
@@ -29,9 +10,9 @@ block nav
           a(href='/regles') Règles
 
 block content
-	div
-    section
+    div
+        section
         h1 Félicitations
-        p Vous avez fini votre examen
-        p.resultat
-        a(href='tableau') Retour au tableau de bord
+            p Vous avez fini votre examen
+            p.resultat Vous avez obtenu la note de #{note} %. #{desc}
+            a(href='tableau') Retour au tableau de bord

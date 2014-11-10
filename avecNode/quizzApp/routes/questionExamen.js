@@ -7,18 +7,17 @@ var db = require('../lib/db');
 router.post('/questionExamen', function(req, res) {
     var user = new QuizUser(req.session);
     user.startExam(req.body.domaine, req.body.nbQuestions);
-
 console.log(req.session);
     res.redirect("questionExamen");
 });
 
 /* Route GET */
 router.get('/questionExamen', function(req, res, next) {
-    console.log(req.session);
     var user = new QuizUser(req.session);
     var exam = user.getExam();
     if (exam) {
         var question = db.getRandomQuestion(exam.domaines, user.getIdsQuestionsPassees());
+        user.setQuestion(question);
 
         var data = {
             "question": question,
@@ -29,9 +28,7 @@ router.get('/questionExamen', function(req, res, next) {
         res.render('question', data);
     }
     else {
-        var err = new Error("Bad Request");
-        err.status = 400;
-        next(err);
+        res.redirect("congra");
     }
 });
 

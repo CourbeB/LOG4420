@@ -13,13 +13,13 @@ function QuizBd (json) {
         this.questions[json.listeQuestions[idQ].id] = new QuizQuestion(
             json.listeQuestions[idQ].id,
             json.listeQuestions[idQ].domaine,
-            safe_tags(json.listeQuestions[idQ].question));
+            json.listeQuestions[idQ].question);
 
         // Ajout des réponses
         for (var idR in json.listeQuestions[idQ].reponses) {
             this.questions[json.listeQuestions[idQ].id].addReponse(
                 json.listeQuestions[idQ].reponses[idR].id,
-                safe_tags(json.listeQuestions[idQ].reponses[idR].value),
+                json.listeQuestions[idQ].reponses[idR].value,
                 json.listeQuestions[idQ].reponses[idR].id == json.listeQuestions[idQ].idVrai
             );
         }
@@ -105,7 +105,7 @@ QuizBd.prototype = {
         var questionsRestantes = [];
 
         for (var k in questions) {
-            if (!(questions[k].id in questionsPassees)) { // Si la question n'est pas déjà passée, on l'ajoute
+            if (questionsPassees.indexOf(questions[k].id) == -1) { // Si la question n'est pas déjà passée, on l'ajoute
                 questionsRestantes.push(questions[k]);
             }
         }
@@ -156,16 +156,6 @@ function QuizReponse (_id, _reponse, _bonne) {
     this.id = _id;
     this.reponse = _reponse;
     this.bonne = _bonne;
-}
-
-/* ### Fonctions utiles ### */
-/**
- * Remplace les caractères spéciaux HTML <, > et & par leur code XML
- * @param str
- * @returns {XML|string}
- */
-function safe_tags(str) {
-    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;') ;
 }
 
 /* MODULE NODEJS */

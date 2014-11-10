@@ -6,8 +6,10 @@ var db = require('../lib/db');
 /* Route POST (traitement du formulaire de choix des thèmes) */
 router.post('/questionExamen', function(req, res) {
     var user = new QuizUser(req.session);
-    user.startExam(req.body.domaine, req.body.nbQuestions);
-console.log(req.session);
+    var domaines = [].concat(req.body.domaine);
+
+    user.startExam(domaines, req.body.nbQuestions);
+
     res.redirect("questionExamen");
 });
 

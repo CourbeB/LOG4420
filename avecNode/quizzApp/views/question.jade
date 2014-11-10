@@ -2,6 +2,11 @@ extends details
 - var modeExamen = false
 
 block headDetails
+    if modeExamen
+        script(type='text/javascript', src='javascripts/quizQuestionExamen.js')
+    else
+        script(type='text/javascript', src='javascripts/quizQuestionRapide.js')
+
 
 block navDetails
     ul
@@ -14,16 +19,25 @@ block navDetails
 
 block contentDetails
     section.question
-      form
-        if modeExamen
-          h1(data-theme='#{question.domaine}') Question #{noQuestion}/#{nbQuestions}
-        else
-          h1(data-theme='#{question.domaine}') Question #{noQuestion}
-        div
-            p #{question.question}
-          nav
+        form
             if modeExamen
-              a.button(href='congra') Abandon
+                h1(data-theme='#{question.domaine}') Question #{noQuestion}/#{nbQuestions}
+                input(type='hidden', name='type', value='examen')
             else
-              a.button(href='tableau') Retour au tableau de bord
-            button(type='submit') Corriger
+                h1(data-theme='#{question.domaine}') Question #{noQuestion}
+            input(type='hidden', name='type', value='rapide')
+            div
+                p #{question.question}
+
+            each reponse in question.reponses
+                label
+                    input(type='radio', name='reponse', value=reponse.id)
+                    | #{reponse.reponse}
+
+            nav
+                if modeExamen
+                    a.button(href='congra') Abandon
+                else
+                    a.button(href='tableau') Retour au tableau de bord
+                button(type='submit') Corriger
+                button(class='questionSuivante', type='button') Suivant

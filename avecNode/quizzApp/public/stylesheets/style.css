@@ -221,6 +221,10 @@ label.repFausse {
     display: block;
 }
 
+.questionSuivante {
+    display: none;
+}
+
 
 /* Responsif */
 @media screen and (max-width: 768px) {

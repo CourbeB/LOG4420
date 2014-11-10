@@ -11,6 +11,9 @@ function QuizUser (_session) {
         reussies: 0,
         totales: 0
     };
+
+    if (this.session.questionsPassees == null) this.session.questionsPassees = [];
+    if (this.session.examensPasses == null) this.session.examensPasses = [];
 }
 
 QuizUser.prototype = {
@@ -80,6 +83,17 @@ QuizUser.prototype = {
         return nb;
     },
 
+    corrigerQuestion: function (reponse) {
+        var reussie = reponse == this.session.questionEnCours.idBonneReponse;
+        this.addQuestion(this.session.questionEnCours.id, reussie);
+
+        return reussie;
+    },
+
+    setQuestion: function (question) {
+        this.session.questionEnCours = question;
+    },
+
     /**
      * Démarre un examen
      * @param domaines
@@ -92,6 +106,10 @@ QuizUser.prototype = {
         };
     },
 
+    /**
+     * Retourne l'exam en cours
+     * @returns {{domaines: *, nbQuestions: *}|*}
+     */
     getExam: function () {
         return this.session.examEnCours;
     },
@@ -104,6 +122,9 @@ QuizUser.prototype = {
             "date": new Date().toLocaleString(),
             "note": this.getNbQuestionsReussies()/this.getNbQuestionsPassees()
         });
+
+        this.session.examEnCours = null;
+        this.session.questionEnCours = null;
     },
 
     /**

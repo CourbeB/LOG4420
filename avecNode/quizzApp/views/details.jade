@@ -8,15 +8,15 @@ block nav
 
 block content
 	div
-	section#details.classDetails
-			a.back(href='#')
-			section
-				h1 Derniers examens
+		section#details.classDetails
+				a.back(href='#')
+				section
+					h1 Derniers examens
+					ul
+			section.stats
+				h1 Stats
 				ul
-		section.stats
-			h1 Stats
-			ul
-			a#details_link(href='#details') Détails
-			| -
-			a#raz_link(href='#') RaZ
-	block contentDetails
+				a#details_link(href='#details') Détails
+				| -
+				a#raz_link(href='#') RaZ
+		block contentDetails

@@ -29,10 +29,10 @@ block contentDetails
             div
                 p #{question.question}
 
-            each reponse in question.reponses
-                label
-                    input(type='radio', name='reponse', value=reponse.id)
-                    | #{reponse.reponse}
+                each reponse in question.reponses
+                    label.reponses
+                        input(type='radio', name='reponse', value=reponse.id)
+                        | #{reponse.reponse}
 
             nav
                 if modeExamen

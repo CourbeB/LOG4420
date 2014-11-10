@@ -58,6 +58,7 @@ a.button, button {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;
+    margin-right: 10px;
 }
 
 header > nav > ul {

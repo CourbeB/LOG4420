@@ -2,10 +2,11 @@ extends details
 
 block headDetails
   script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
-  script(type='text/javascript', src='/javascripts/QuizBd.js')
   script(type='text/javascript', src='/javascripts/QuizUser.js')
   script(type='text/javascript', src='/javascripts/quiz.js')
   script(type='text/javascript').
+    var domainesString = !{domainesString};
+
     var bd;
     var user;
     var nbQuestions = 0;
@@ -13,25 +14,21 @@ block headDetails
     var stats;
     $(function () {
       stats = $("section.stats");
-      user = new QuizUser();
-      // Chargement BD
-      $.getJSON("ressources/questions.json", function (data) {
-        bd = new QuizBd(data);
-        var domaines = [];
-        domaines = bd.getDomaines();
-          $.each(domaines, function(i, val){
-            $("#exam_options > select").append('<option value="'+val+'">'+val+'</option>');
-          });
-      });
-
+      //user = new QuizUser();
       // Formulaire paramètres examen
       $("#exam").submit(function(event){
         domainesChoisis = $("#exam_options > select").val();
-        nbQuestions = bd.getNbQuestions(domainesChoisis);
-        if($("#exam_options > input").val() <=nbQuestions) 
+        for (var k in domainesChoisis) {
+          for (var l in domainesString){
+            if(domainesString[l].domaine == domainesChoisis[k])
+            nbQuestions += domainesString[k].nbQuestions;
+          }
+        }
+        if($("#exam_options > input").val() <=nbQuestions)
           return;
         $("#exam_options > input").css("border-color","red");
         alert("Nombres de questions choisies trop grand, nombre max :" + nbQuestions);
+        nbQuestions = 0;
         event.preventDefault();
       });
     
@@ -66,8 +63,8 @@ block contentDetails
         h2 Examen
         form#exam(method='post', action='questionExamen')
           #exam_options
-            select(size='1', multiple='multiple', name='domaine')
-                option(value="HTML") HTML
-                option(value="CSS") CSS
+            select(size='1', multiple='multiple', name='domaine')              
+              each val in domaines
+                option(value=val) #{val}
             input(type='text', name='nbQuestions', placeholder='Nombre de questions')
           button(type='submit') Démarrer

@@ -61,6 +61,23 @@ QuizBd.prototype = {
     },
 
     /**
+     * Retourne un dico (domaine, nombre de questions)
+     * @returns {dico}
+     */
+
+    getDomainesNbQuestion: function () {
+        var dico = [];
+        var cles = this.getDomaines();
+        for (var cle in cles){
+            dico.push({
+                "domaine" : cles[cle],
+                "nbQuestions": this.getNbQuestions([cles[cle]])
+            });
+        }
+        return dico;
+    },
+
+    /**
      * Retourne toutes les questions des domaines passés en paramètre
      * @param domaines
      * @returns {Array}

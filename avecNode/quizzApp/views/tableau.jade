@@ -24,10 +24,13 @@ block headDetails
             nbQuestions += domainesString[k].nbQuestions;
           }
         }
-        if($("#exam_options > input").val() <=nbQuestions)
+        if(($("#exam_options > input").val() <=nbQuestions) && ($("#exam_options > input").val()!= 0))
           return;
         $("#exam_options > input").css("border-color","red");
-        alert("Nombres de questions choisies trop grand, nombre max :" + nbQuestions);
+        if($("#exam_options > input").val()== 0)
+          alert("Tu dois choisir au moins 1 question"); 
+        else
+          alert("Nombres de questions choisies trop grand, nombre max :" + nbQuestions);
         nbQuestions = 0;
         event.preventDefault();
       });
@@ -66,5 +69,5 @@ block contentDetails
             select(size='1', multiple='multiple', name='domaine')              
               each val in domaines
                 option(value=val) #{val}
-            input(type='text', name='nbQuestions', placeholder='Nombre de questions')
+            input(type='text', name='nbQuestions', placeholder='0')
           button(type='submit') Démarrer

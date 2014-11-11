@@ -1,0 +1,27 @@
+extend layout
+
+block head
+    block headDetails
+
+block nav
+    block navDetails
+
+block content
+    div
+        section#details.classDetails
+                a.back(href='#')
+                section
+                    h1 Derniers examens
+                    ul
+                        each exam in stats.exams
+                            li #{exam.date} : #{exam.note} %
+            section.stats
+                h1 Stats
+                ul
+                    li Note tests rapides : #{stats.noteTestsRapides.reussies} / #{stats.noteTestsRapides.totales}
+                    li Moyenne des examens passés : #{stats.moyenneExamens} %
+
+                a#details_link(href='#details') Détails
+                | -
+                a#raz_link(href='/raz') RaZ
+        block contentDetails

@@ -1,0 +1,61 @@
+extends details
+
+block headDetails
+  script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+  script(type='text/javascript', src='/javascripts/QuizUser.js')
+  script(type='text/javascript', src='/javascripts/quiz.js')
+  script(type='text/javascript').
+    var domainesString = !{domainesString};
+
+    var bd;
+    var user;
+    var nbQuestions = 0;
+    var domainesChoisis = [];
+    var stats;
+    $(function () {
+      stats = $("section.stats");
+      //user = new QuizUser();
+      // Formulaire paramètres examen
+      $("#exam").submit(function(event){
+        domainesChoisis = $("#exam_options > select").val();
+        for (var k in domainesChoisis) {
+          for (var l in domainesString){
+            if(domainesString[l].domaine == domainesChoisis[k])
+            nbQuestions += domainesString[k].nbQuestions;
+          }
+        }
+        if(($("#exam_options > input").val() <=nbQuestions) && ($("#exam_options > input").val()!= 0))
+          return;
+        $("#exam_options > input").css("border-color","red");
+        if($("#exam_options > input").val()== 0)
+          alert("Tu dois choisir au moins 1 question ou 1 domaine"); 
+        else
+          alert("Nombres de questions choisies trop grand, nombre max :" + nbQuestions);
+        nbQuestions = 0;
+        event.preventDefault();
+      });
+    });
+
+block navDetails
+ ul
+     li
+       a(href='/') Accueil
+     li
+       a.active(href='/tableau') Tableau de bord
+     li
+       a(href='/regles') Règles
+
+block contentDetails
+      section.questionnaire
+        h1 Questionnaires
+        h2 Test rapide
+        form#test(action='questionRapide')
+          button(type='submit') Démarrer
+        h2 Examen
+        form#exam(method='post', action='questionExamen')
+          #exam_options
+            select(size='1', multiple='multiple', name='domaine')              
+              each val in domaines
+                option(value=val) #{val}
+            input(type='text', name='nbQuestions', placeholder='0')
+          button(type='submit') Démarrer

@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var QuizUser = require('../lib/user');
-var db = require('../lib/db');
+var Question = require('../models/question');
 
 /* Route POST (traitement du formulaire de choix des thèmes) */
 router.post('/questionExamen', function(req, res) {
@@ -18,17 +18,18 @@ router.get('/questionExamen', function(req, res, next) {
     var user = new QuizUser(req.session);
     var exam = user.getExam();
     if (exam) {
-        var question = db.getRandomQuestion(exam.domaines, user.getIdsQuestionsPassees());
-        user.setQuestion(question);
+        Question.getRandomQuestion(exam.domaines, user.getIdsQuestionsPassees(), function(err, q) {
+            user.setQuestion(q);
 
-        var data = {
-            "question": question,
-            "noQuestion": user.getNbQuestionsPassees()+1,
-            "nbQuestions": exam.nbQuestions,
-            "modeExamen": true,
-            'stats': user.getStats()
-        };
-        res.render('question', data);
+            var data = {
+                "question": q,
+                "noQuestion": user.getNbQuestionsPassees()+1,
+                "nbQuestions": exam.nbQuestions,
+                "modeExamen": true,
+                'stats': user.getStats()
+            };
+            res.render('question', data);
+        });
     }
     else {
         res.redirect("congra");

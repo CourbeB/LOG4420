@@ -32,7 +32,7 @@ block contentDetails
                 each reponse in question.reponses
                     label.reponses
                         input(type='radio', name='reponse', value=reponse.id)
-                        | #{reponse.reponse}
+                        | #{reponse.value}
 
             nav
                 if modeExamen

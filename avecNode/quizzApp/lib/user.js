@@ -61,6 +61,13 @@ QuizUser.prototype = {
     },
 
     /**
+     * Vide la liste des questions passées
+     */
+    clearQuestionsPassees: function() {
+        this.session.questionsPassees = [];
+    },
+
+    /**
      * Retourne le nombre de questions déjà posées
      * @returns {Number}
      */
@@ -84,7 +91,7 @@ QuizUser.prototype = {
     },
 
     corrigerQuestion: function (reponse) {
-        var reussie = reponse == this.session.questionEnCours.idBonneReponse;
+        var reussie = (reponse == this.session.questionEnCours.idBonneReponse);
         this.addQuestion(this.session.questionEnCours.id, reussie);
 
         return reussie;
@@ -105,7 +112,7 @@ QuizUser.prototype = {
             "nbQuestions": nbQuestions
         };
 
-        this.session.questionsPassees = []
+        this.clearQuestionsPassees();
     },
 
     /**

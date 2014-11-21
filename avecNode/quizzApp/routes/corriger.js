@@ -1,7 +1,6 @@
 var express = require('express');
 var router = express.Router();
 var QuizUser = require('../lib/user');
-var db = require('../lib/db');
 
 /* AJAX corriger */
 router.post('/corriger', function(req, res) {

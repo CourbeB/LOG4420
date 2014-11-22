@@ -25,6 +25,8 @@ app.use(session({secret: 'zgiorhsglihqdgli'}));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', require('./routes/index'));
+app.use('/', require('./routes/ajouterQuestion'));
+app.use('/', require('./routes/ajouterToutesLesQuestions'));
 app.use('/', require('./routes/questionExamen'));
 app.use('/', require('./routes/questionRapide'));
 app.use('/', require('./routes/tableau'));

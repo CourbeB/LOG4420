@@ -72,5 +72,31 @@ module.exports = {
         question.findOneRandom(filter, function(err, res) {
             callback(err, res);
         });
+    },
+
+    ajouterToutesLesQuestions: function(lesQuestions, callback){
+        var questions = new question(lesQuestions); // attention probleme id rep
+        questions.save(function (err, res) {
+            callback(err, res);
+        });
+    },
+
+    ajouterQuestion: function(domaine, laquestion, reponses, idBonneReponse, callback){
+        var ques = new question({
+        domaine: domaine
+        , question: laquestion
+        , idBonneReponse: idBonneReponse
+        });
+
+        var tab = JSON.parse(JSON.stringify(ques)).reponses
+        for (var i = 0; i < reponses.length; i++) {
+            var newReponse = {"id":i+1, "value":reponses[i]};
+            tab.push(newReponse);
+        };
+        ques.reponses = tab;
+        ques.save(function(err, ques) {
+        if (err) return console.error(err);
+        console.dir(ques);
+        });
     }
 };

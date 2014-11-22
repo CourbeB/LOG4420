@@ -10,8 +10,10 @@ router.get('/ajouterQuestion', function(req, res) {
 
 router.post('/ajouterQuestion', function(req, res) {
     var reponses=req.body.reponses.split(',');
-    Question.ajouterQuestion(req.body.domaine, req.body.question, reponses, parseInt(req.body.idBonneReponse));
-    res.render('ajouterQuestion');
+    Question.ajouterQuestion(req.body.domaine, req.body.question, reponses, parseInt(req.body.idBonneReponse), function(){
+    	res.render('ajouterQuestion');
+    });
+
 });
 
 module.exports = router;

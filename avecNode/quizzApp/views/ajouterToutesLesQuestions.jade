@@ -1,0 +1,24 @@
+extends layout
+
+block headDetails
+  script(type='text/javascript', src='//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js')
+  script(type='text/javascript', src='/javascripts/QuizUser.js')
+  script(type='text/javascript', src='/javascripts/quiz.js')
+
+block nav
+ ul
+     li
+       a(href='/') Accueil
+     li
+       a(href='/tableau') Tableau de bord
+     li
+       a(href='/regles') Règles
+
+block content
+  div
+    section
+        h1 Ajouter une liste de questions
+        form(method='post', action='ajouterToutesLesQuestions')
+            label Liste de questions
+                textarea(name="lesQuestions")
+            button(type='submit') Ajouter

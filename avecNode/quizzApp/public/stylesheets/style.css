@@ -227,6 +227,21 @@ label.repFausse {
 }
 
 
+.ajoutQuestion {
+    text-align: center;
+}
+
+#ajout {
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-style: solid;
+    border-width: 2px;
+    border-color: rgb(108,122,137);
+}
+
+
 /* Responsif */
 @media screen and (max-width: 768px) {
     section.stats {

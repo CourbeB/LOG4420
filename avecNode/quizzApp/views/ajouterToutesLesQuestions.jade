@@ -16,9 +16,10 @@ block nav
 
 block content
   div
-    section
+    section.ajoutQuestion
         h1 Ajouter une liste de questions
-        form(method='post', action='ajouterToutesLesQuestions')
-            label Liste de questions
-                textarea(name="lesQuestions")
+        form#ajout(method='post', action='ajouterToutesLesQuestions')
+            label Liste de questions 
+                textarea(name="lesQuestions", rows="10", cols="66" )
+              br
             button(type='submit') Ajouter

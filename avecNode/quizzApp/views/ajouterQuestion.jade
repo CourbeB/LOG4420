@@ -16,15 +16,19 @@ block nav
 
 block content
   div
-    section
+    section.ajoutQuestion
         h1 Ajouter une question
-        form(method='post', action='ajouterQuestion')
+        form#ajout(method='post', action='ajouterQuestion')
             label Domaine
                 input(type='text', name='domaine', required)
+                br
             label Question
                 input(type='text', name='question', required)
+                br
             label Reponses séparées par une virgule
                 input(type='text', name='reponses', required)
+                br
             label Position de la bonne reponse dans votre liste
                 input(type='text', name='idBonneReponse', required)
+                br
             button(type='submit') Ajouter

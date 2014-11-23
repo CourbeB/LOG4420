@@ -72,5 +72,75 @@ module.exports = {
         question.findOneRandom(filter, function(err, res) {
             callback(err, res);
         });
+    },
+
+    ajouterToutesLesQuestions: function(lesQuestions, callback){
+        /*for (var i = 0; i < lesQuestions.length; i++) {
+            var ques = new question({
+            domaine: lesQuestions[i].domaine
+            , question: lesQuestions[i].question
+            , idBonneReponse: lesQuestions[i].idVrai
+            });
+
+            var tmp = lesQuestions[i].reponses.map(function(reponse) { return reponse.value; });
+            var tab = JSON.parse(JSON.stringify(ques)).reponses;
+            for (var i = 0; i < tmp.length; i++) {
+                var newReponse = {"id":i+1, "value":tmp[i]};
+                tab.push(newReponse);
+            };
+            ques.reponses = tab;
+            ques.save(function(err, ques) {
+                if (err) return console.error(err);
+                console.dir(ques);
+            });
+        };*/
+
+        function ajouter(questions, callback){
+            var laQuestion = questions.pop();
+            var ques = new question({
+                domaine: laQuestion.domaine
+                , question: laQuestion.question
+                , idBonneReponse: laQuestion.idVrai
+            });
+
+            var tmp = laQuestion.reponses.map(function(reponses){return reponses.value;});
+            var tab = [];
+            for (var i = 0; i < tmp.length; i++) {
+                var newReponse = {"id":i+1, "value":tmp[i]};
+                tab.push(newReponse);
+            };
+            ques.reponses = tab;
+
+            ques.save(function(err, ques) {
+                if (err) return console.error(err);
+
+                if (questions.length <= 0) {
+                    callback();
+                }
+                else {
+                    ajouter(questions, callback);
+                }  
+            });
+        }
+
+        ajouter(lesQuestions, callback);
+    },
+
+    ajouterQuestion: function(domaine, laquestion, reponses, idBonneReponse, callback){
+        var ques = new question({
+        domaine: domaine
+        , question: laquestion
+        , idBonneReponse: idBonneReponse
+        });
+
+        var tab = JSON.parse(JSON.stringify(ques)).reponses
+        for (var i = 0; i < reponses.length; i++) {
+            var newReponse = {"id":i+1, "value":reponses[i]};
+            tab.push(newReponse);
+        };
+        ques.reponses = tab;
+        ques.save(function(err, res) {
+            callback(err, res);
+        });
     }
 };

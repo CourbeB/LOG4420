@@ -92,7 +92,7 @@ QuizUser.prototype = {
 
     corrigerQuestion: function (reponse) {
         var reussie = (reponse == this.session.questionEnCours.idBonneReponse);
-        this.addQuestion(this.session.questionEnCours.id, reussie);
+        this.addQuestion(this.session.questionEnCours._id, reussie);
 
         return reussie;
     },

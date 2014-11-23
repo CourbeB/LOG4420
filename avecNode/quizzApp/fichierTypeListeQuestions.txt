@@ -1,0 +1,122 @@
+FICHIER TYPE DE QUESTIONS : 
+
+[{
+
+			"domaine": "HTML",
+			"question":"Que veut dire HTML ?",
+			"reponses":[
+				{"value":"Hypertext Markup Language","id":1},
+				{"value":"Haute Tension Monitorée Linéairement","id":2}
+			],
+			"idVrai":1
+		},	
+	
+
+		{
+			"domaine": "HTML",
+			"question":"La balise body est-elle obligatoire en HTML 5 ?",
+			"reponses":[
+				{"value":"Oui","id":1},
+				{"value":"Non","id":2}
+			],
+			"idVrai":2
+		},
+
+
+		{
+
+			"domaine": "HTML",
+			"question":"Qui fait les standards du Web ?",
+			"reponses":[
+				{"value":"Mozilla","id":1},
+				{"value":"Le World Wide Web Consortium","id":2},
+				{"value":"Google","id":3}
+			],
+			"idVrai":2
+		},
+
+
+		{
+
+			"domaine": "HTML",
+			"question":"Quelle est la balise nécessaire pour faire un retour à la ligne ?",
+			"reponses":[
+				{"value":"<break/>","id":1},
+				{"value":"<br/>","id":2},
+				{"value":"<lb/>","id":3}
+			],
+			"idVrai":2
+		},
+
+
+		{
+
+			"domaine": "CSS",
+			"question":"CSS3 possède un sélecteur pour permettre de sélectionner un parent.",
+			"reponses":[
+				{"value":"Oui","id":1},
+				{"value":"Non","id":2}
+			],
+			"idVrai":2
+		},
+
+
+		{
+
+			"domaine": "CSS",
+			"question":"Comment fait-on référence à une fichier CSS externe dans une page HTML ?",
+			"reponses":[
+				{"value":"<stylesheet>mystyle.css</stylesheet>","id":1},
+				{"value":"<link rel=\"stylesheet\" type=\"text/css\" href=\"mystyle.css\"/>","id":2}
+			],
+			"idVrai":2
+		},
+
+
+		{
+
+			"domaine": "CSS",
+			"question":"Quelle balise utilise-t-on pour définir un style interne à la page ?",
+			"reponses":[
+				{"value":"<css>","id":1},
+				{"value":"<style>","id":2}
+			],
+			"idVrai":2
+		},
+
+
+		{
+
+			"domaine": "JS",
+			"question":"Comment insérer du code Javascript dans une page HTML ?",
+			"reponses":[
+				{"value":"<js>","id":1},
+				{"value":"<script>","id":2}
+			],
+			"idVrai":2
+		},
+
+
+		{
+
+			"domaine": "JS",
+			"question":"Comment commenter du code Javascript ?",
+			"reponses":[
+				{"value":"# un commentaire","id":1},
+				{"value":"/* un commentaire*/","id":2}
+			],
+			"idVrai":2
+		},
+
+		{
+
+			"domaine": "JS",
+			"question":"Comment insérer un fichier Javascript dans une page HTML ?",
+			"reponses":[
+				{"value":"<javascript src=\"xxx.js\"></javascript>","id":1},
+				{"value":"<script type=\"text/javascript\" src=\"xxx.js\"></script>","id":2}
+			],
+			"idVrai":2
+		}
+
+	]

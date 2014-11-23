@@ -67,7 +67,7 @@ module.exports = {
      * @param callback function(err, res)
      */
     getRandomQuestion: function (domaines, questionsPassees, callback) {
-        var filter = (domaines != null && domaines.length > 1) ? {domaine: {$in: domaines}, _id: {$nin: questionsPassees}} : {_id: {$nin: questionsPassees}};
+        var filter = (domaines != null && domaines.length >= 1) ? {domaine: {$in: domaines}, _id: {$nin: questionsPassees}} : {_id: {$nin: questionsPassees}};
 
         question.findOneRandom(filter, function(err, res) {
             callback(err, res);

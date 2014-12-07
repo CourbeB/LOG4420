@@ -30,9 +30,6 @@ router.get('/api/getQuestionExamen', function(req, res, next) {
             res.send(JSON.stringify(data));
         });
     }
-    else {
-        //res.redirect("congra"); TODO
-    }
 });
 
 module.exports = router;

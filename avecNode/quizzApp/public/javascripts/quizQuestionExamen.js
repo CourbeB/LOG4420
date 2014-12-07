@@ -1,25 +1,20 @@
-var abort = true;
+QuizApp.controller("QuestionExamenControlleur", ["$scope", "QuestionModel", function($scope, QuestionModel) {
+    $scope.corriger = function () {
+        QuestionModel.corriger($scope.userReponse, "exam", $scope.question.reponses, function() {
+            $scope.status = ($scope.noQuestion == $scope.nbQuestions) ? 'terminer' : 'suivant';
+        });
+    };
 
-$(function () {
-    $("section.question > form").submit(function (event) {
-        event.preventDefault();
-        corrigerQuestion(this, "examen");
-    });
+    $scope.nouvelleQuestion = function() {
+        QuestionModel.getQuestionExamen(function(data) {
+            $scope.question = data.question;
+            $scope.noQuestion = data.noQuestion;
+            $scope.nbQuestions = data.nbQuestions;
 
-    $("section.question .questionSuivante").click(function () {
-        abort = false;
-        window.location.href = "/questionExamen";
-    });
+            $scope.userReponse = null;
+            $scope.status = 'corriger';
+        });
+    };
 
-    // Détection changement de page pour mettre 0 à l'exam
-    $(window).bind("beforeunload", function (event) {
-        if (abort) {
-            return "Attention si vous quittez cette page vous aurez 0 à votre examen ! Êtes-vous sûr de d'abandonner ?";
-        }
-    });
-    $(window).bind("unload", function (event) {
-        if (abort) {
-            window.location.href = "/congra";
-        }
-    });
-});
+    $scope.nouvelleQuestion();
+}]);

@@ -1,10 +1,18 @@
-$(function () {
-    $("section.question > form").submit(function (event) {
-        event.preventDefault();
-        corrigerQuestion(this, "rapide");
-    });
+QuizApp.controller("QuestionRapideControlleur", ["$scope", "QuestionModel", function($scope, QuestionModel) {
+    $scope.corriger = function () {
+        QuestionModel.corriger($scope.userReponse, "rapide", $scope.question.reponses, function() {
+            $scope.status = 'suivant';
+        });
+    };
 
-    $("section.question .questionSuivante").click(function () {
-        window.location.href = "/questionRapide";
-    });
-});
+    $scope.nouvelleQuestion = function() {
+        QuestionModel.getQuestionRapide(function(data) {
+            $scope.question = data.question;
+
+            $scope.userReponse = null;
+            $scope.status = 'corriger';
+        });
+    };
+
+    $scope.nouvelleQuestion();
+}]);

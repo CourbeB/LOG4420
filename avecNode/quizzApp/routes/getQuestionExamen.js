@@ -14,7 +14,7 @@ router.post('/questionExamen', function(req, res) {
 });
 
 /* Route GET */
-router.get('/questionExamen', function(req, res, next) {
+router.get('/api/getQuestionExamen', function(req, res, next) {
     var user = new QuizUser(req.session);
     var exam = user.getExam();
     if (exam) {
@@ -25,14 +25,13 @@ router.get('/questionExamen', function(req, res, next) {
                 "question": q,
                 "noQuestion": user.getNbQuestionsPassees()+1,
                 "nbQuestions": exam.nbQuestions,
-                "modeExamen": true,
                 'stats': user.getStats()
             };
-            res.render('question', data);
+            res.send(JSON.stringify(data));
         });
     }
     else {
-        res.redirect("congra");
+        //res.redirect("congra"); TODO
     }
 });
 

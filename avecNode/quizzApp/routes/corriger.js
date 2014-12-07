@@ -3,7 +3,7 @@ var router = express.Router();
 var QuizUser = require('../lib/user');
 
 /* AJAX corriger */
-router.post('/corriger', function(req, res) {
+router.post('/api/corriger', function(req, res) {
     var user = new QuizUser(req.session);
     var reussie = user.corrigerQuestion(req.body.reponse);
     var bonneRep = user.session.questionEnCours.idBonneReponse;

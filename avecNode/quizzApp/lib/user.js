@@ -23,7 +23,7 @@ QuizUser.prototype = {
      */
     raz: function (callback) {
         this.session.destroy();
-        resultats.removeResultats(function (err) {
+        this.resultats.removeResultats(function (err) {
             callback(err);
         });
     },
@@ -159,9 +159,9 @@ QuizUser.prototype = {
      */
     getMoyenneExamens: function (callback) {
         this.resultats.getMoyenneExamens(function (err, moyenne) {
-            console.log(moyenne[0].moyenne);
+            var moy = moyenne[0] == undefined ? 0 : moyenne[0].moyenne;
             //res = Math.round(moyenne);
-            callback(err, moyenne[0].moyenne);
+            callback(err, moy);
         });
     },
 

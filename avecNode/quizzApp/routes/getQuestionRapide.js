@@ -4,7 +4,7 @@ var QuizUser = require('../lib/user');
 var Question = require('../models/question');
 
 /* Route GET */
-router.get('/questionRapide', function(req, res, next) {
+router.get('/api/getQuestionRapide', function(req, res, next) {
     var user = new QuizUser(req.session);
 
     Question.getNbQuestions([], function(err, nbTotal) {
@@ -19,6 +19,7 @@ router.get('/questionRapide', function(req, res, next) {
         Question.getRandomQuestion([], questionsPassees, function(err, q) {
             user.setQuestion(q);
 
+<<<<<<< HEAD:avecNode/quizzApp/routes/questionRapide.js
             user.getStats(function (stats) {
                 var data = {
                     "question": q,
@@ -26,8 +27,14 @@ router.get('/questionRapide', function(req, res, next) {
                     'stats': stats
                 };
             });
+=======
+            var data = {
+                "question": q,
+                'stats': user.getStats()
+            };
+>>>>>>> origin/master:avecNode/quizzApp/routes/getQuestionRapide.js
 
-            res.render('question', data);
+            res.send(JSON.stringify(data));
         });
     });
 });

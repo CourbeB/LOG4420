@@ -18,26 +18,27 @@ block navDetails
           a(href='/regles') Règles
 
 block contentDetails
-    section.question
-        form
+    section.question(ng-app='Quiz')
+        form(ng-controller=modeExamen ? 'QuestionExamenControlleur' : 'QuestionRapideControlleur')
             if modeExamen
-                h1(data-theme='#{question.domaine}') Question #{noQuestion}/#{nbQuestions}
-                input(type='hidden', name='type', value='examen')
+                h1(data-theme='{{question.domaine}}') Question {{noQuestion}}/{{nbQuestions}}
             else
-                h1(data-theme='#{question.domaine}') Question #{noQuestion}
-            input(type='hidden', name='type', value='rapide')
+                h1(data-theme='{{question.domaine}}') Question {{noQuestion}}
+
             div
-                p #{question.question}
+                p {{question.question}}
 
-                each reponse in question.reponses
-                    label.reponses
-                        input(type='radio', name='reponse', value=reponse.id)
-                        | #{reponse.value}
+                div
+                    label.reponses(ng-repeat='reponse in question.reponses', ng-class='{repVraie: reponse.vraie, repFausse: reponse.fausse}')
+                        input(type='radio', name='reponse', value='{{reponse.id}}', ng-model='$parent.userReponse')
+                        | {{reponse.value}}
 
-            nav
+            nav(ng-switch, on='status')
                 if modeExamen
                     a.button(href='congra') Abandon
                 else
-                    a.button(href='tableau') Retour au tableau de bord
-                button(type='submit') Corriger
-                button(class='questionSuivante', type='button') Suivant
+                    a.button(href='tableau') Terminer et retour au tableau de bord
+
+                button(ng-switch-when='corriger', type='button', ng-click='corriger()') Corriger
+                button(ng-switch-when='suivant', type='button', ng-click='nouvelleQuestion()') Suivant
+                a.button(ng-switch-when='terminer', href='congra') Terminer

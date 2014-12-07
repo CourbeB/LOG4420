@@ -1,14 +1,40 @@
-function corrigerQuestion (form, type) {
-    $("input[type=radio]", form).prop("disabled", true);
+var QuizApp = angular.module("Quiz", []);
 
-    $.post("/corriger", {"reponse": $("input[type=radio]:checked", form).val(), "type": type}, function (data, status) {
-        if (status == "success") {
-            $("input[type=radio]", form).each(function () {
-                $(this).parent().addClass($(this).val() == data ? "repVraie" : "repFausse");
+QuizApp.factory("QuestionModel", ["$http", "$log", function($http, $log) {
+    return {
+        getQuestionExamen: function(callback) {
+            $http.get("api/getQuestionExamen")
+                .success(function(data) {
+                    callback(data);
+                })
+                .error(function(data) {
+                    $log.log("Error : " + data);
+                });
+        },
+        getQuestionRapide: function(callback) {
+            $http.get("api/getQuestionRapide")
+                .success(function(data) {
+                    callback(data);
+                })
+                .error(function(data) {
+                    $log.log("Error : " + data);
+                });
+        },
+        corriger: function(reponse, type, reponses, callback) {
+            $http.post("api/corriger", {reponse: reponse, type: type})
+                .success(function(bonneRep) {
+                    reponses.map(function (reponse) {
+                        if (reponse.id == bonneRep)
+                            reponse.vraie = true;
+                        else
+                            reponse.fausse = true;
+                    });
 
-                $("button[type=submit]", form).hide();
-                $(".questionSuivante", form).show();
-            });
+                    callback();
+                })
+                .error(function(data) {
+                    $log.log("Error : " + data);
+                });
         }
-    });
-}
+    };
+}]);

@@ -14,13 +14,14 @@ router.post('/questionExamen', function(req, res) {
 });
 
 /* Route GET */
-router.get('/questionExamen', function(req, res, next) {
+router.get('/api/getQuestionExamen', function(req, res, next) {
     var user = new QuizUser(req.session);
     var exam = user.getExam();
     if (exam) {
         Question.getRandomQuestion(exam.domaines, user.getIdsQuestionsPassees(), function(err, q) {
             user.setQuestion(q);
 
+<<<<<<< HEAD:avecNode/quizzApp/routes/questionExamen.js
 
             user.getStats(function (stats) {
                 var data = {
@@ -32,10 +33,16 @@ router.get('/questionExamen', function(req, res, next) {
                 };
                 res.render('question', data);
             });
+=======
+            var data = {
+                "question": q,
+                "noQuestion": user.getNbQuestionsPassees()+1,
+                "nbQuestions": exam.nbQuestions,
+                'stats': user.getStats()
+            };
+            res.send(JSON.stringify(data));
+>>>>>>> origin/master:avecNode/quizzApp/routes/getQuestionExamen.js
         });
-    }
-    else {
-        res.redirect("congra");
     }
 });
 

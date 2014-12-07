@@ -21,27 +21,15 @@ router.get('/api/getQuestionExamen', function(req, res, next) {
         Question.getRandomQuestion(exam.domaines, user.getIdsQuestionsPassees(), function(err, q) {
             user.setQuestion(q);
 
-<<<<<<< HEAD:avecNode/quizzApp/routes/questionExamen.js
-
             user.getStats(function (stats) {
                 var data = {
                     "question": q,
                     "noQuestion": user.getNbQuestionsPassees()+1,
                     "nbQuestions": exam.nbQuestions,
-                    "modeExamen": true,
                     'stats': stats
                 };
-                res.render('question', data);
+                res.send(JSON.stringify(data));
             });
-=======
-            var data = {
-                "question": q,
-                "noQuestion": user.getNbQuestionsPassees()+1,
-                "nbQuestions": exam.nbQuestions,
-                'stats': user.getStats()
-            };
-            res.send(JSON.stringify(data));
->>>>>>> origin/master:avecNode/quizzApp/routes/getQuestionExamen.js
         });
     }
 });

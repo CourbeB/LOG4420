@@ -19,22 +19,14 @@ router.get('/api/getQuestionRapide', function(req, res, next) {
         Question.getRandomQuestion([], questionsPassees, function(err, q) {
             user.setQuestion(q);
 
-<<<<<<< HEAD:avecNode/quizzApp/routes/questionRapide.js
             user.getStats(function (stats) {
                 var data = {
                     "question": q,
-                    "modeExamen": false,
                     'stats': stats
                 };
-            });
-=======
-            var data = {
-                "question": q,
-                'stats': user.getStats()
-            };
->>>>>>> origin/master:avecNode/quizzApp/routes/getQuestionRapide.js
 
-            res.send(JSON.stringify(data));
+                res.send(JSON.stringify(data));
+            });
         });
     });
 });

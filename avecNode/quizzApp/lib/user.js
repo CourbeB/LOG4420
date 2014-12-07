@@ -145,11 +145,11 @@ QuizUser.prototype = {
      */
     abortExamen: function(callback) {
         var self = this;
-        self.resultats.abortExamen(new Date(), self.getExam().domaines, function () {
+        self.resultats.abortExamen(new Date(), self.getExam().domaines, function (err) {
             self.session.examEnCours = null;
             self.session.questionEnCours = null;
             self.session.questionsPassees = [];
-            callback(err, res);
+            callback(err);
         });
     },
 

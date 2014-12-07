@@ -15,7 +15,7 @@ router.get('/tableau', function(req, res, next) {
 
         user.getStats(function (stats) {
             var data = { 	'domaines': dList,
-            'domainesString': domainesString,
+            'domainesString': JSON.stringify(domainesString),
             'stats': stats};
             res.render('tableau',data);
         });

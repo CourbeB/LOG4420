@@ -9,20 +9,9 @@ router.get('/congra', function(req, res) {
 
     // Abandon :
     user.getExamens(function (err, examens) {
-        if (err)
-            console.log(err);
-        else{
-            if (examens.length <= 0 || (exam != null && exam.nbQuestions > user.getNbQuestionsPassees())) {
-                console.log("abort");
-                user.abortExamen(function (err, res) {
-                    if (err)
-                        console.log(err);
-                });
-            }
-
+        function afficherRes() {
             var data = {};
             user.getDernierExam(function (err, dernierExam) {
-                console.log(dernierExam[0].note);
                 data.note = dernierExam[0].note;
 
                 if(data.note<=25)
@@ -36,6 +25,22 @@ router.get('/congra', function(req, res) {
 
                 res.render('congra', data);
             });
+        }
+
+        if (err)
+            console.log(err);
+        else{
+            if (examens.length <= 0 || (exam != null && exam.nbQuestions > user.getNbQuestionsPassees())) {
+                console.log("abort");
+                user.abortExamen(function (err, res) {
+                    if (err)
+                        console.log(err);
+                    else
+                        afficherRes();
+                });
+            }
+            else
+                afficherRes();
         }
     });
 });

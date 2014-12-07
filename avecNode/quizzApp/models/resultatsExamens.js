@@ -32,8 +32,8 @@ module.exports = {
             domaines: domaines
         });
 
-        result.save(function(err, res) {
-            callback(err, res);
+        result.save(function(err) {
+            callback(err);
         });
 	},
 

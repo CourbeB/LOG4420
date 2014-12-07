@@ -21,14 +21,17 @@ router.get('/questionExamen', function(req, res, next) {
         Question.getRandomQuestion(exam.domaines, user.getIdsQuestionsPassees(), function(err, q) {
             user.setQuestion(q);
 
-            var data = {
-                "question": q,
-                "noQuestion": user.getNbQuestionsPassees()+1,
-                "nbQuestions": exam.nbQuestions,
-                "modeExamen": true,
-                'stats': user.getStats()
-            };
-            res.render('question', data);
+
+            user.getStats(function (stats) {
+                var data = {
+                    "question": q,
+                    "noQuestion": user.getNbQuestionsPassees()+1,
+                    "nbQuestions": exam.nbQuestions,
+                    "modeExamen": true,
+                    'stats': stats
+                };
+                res.render('question', data);
+            });
         });
     }
     else {

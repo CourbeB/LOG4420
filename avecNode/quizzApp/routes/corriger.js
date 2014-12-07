@@ -10,14 +10,22 @@ router.post('/corriger', function(req, res) {
 
     if (req.body.type == 'rapide') {
         user.addQuestionTestRapide(reussie);
+        res.send(JSON.stringify(bonneRep));
     }
     else {
         if (user.getNbQuestionsPassees() >= user.getExam().nbQuestions) {
-            user.saveExamen();
+            user.saveExamen(function (err) {
+                if(err)
+                    console.log(err);
+                else
+                    res.send(JSON.stringify(bonneRep));
+            });
         }
+        else
+            res.send(JSON.stringify(bonneRep));
     }
 
-    res.send(JSON.stringify(bonneRep));
+    
 });
 
 module.exports = router;

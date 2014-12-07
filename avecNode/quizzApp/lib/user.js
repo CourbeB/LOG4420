@@ -6,6 +6,7 @@
  */
 function QuizUser (_session) {
     this.session = _session;
+    this.resultats = require('../models/resultatsExamens');
 
     if (this.session.noteTestsRapides == null) this.session.noteTestsRapides = {
         reussies: 0,
@@ -13,7 +14,7 @@ function QuizUser (_session) {
     };
 
     if (this.session.questionsPassees == null) this.session.questionsPassees = [];
-    if (this.session.examensPasses == null) this.session.examensPasses = [];
+    //if (this.session.examensPasses == null) this.session.examensPasses = [];
 }
 
 QuizUser.prototype = {
@@ -126,56 +127,80 @@ QuizUser.prototype = {
     /**
      * Enregistre le résultat de l'examen
      */
-    saveExamen: function () {
-        this.session.examensPasses.push({
-            "date": new Date().toLocaleString(),
-            "note": (this.getNbQuestionsReussies()/this.getNbQuestionsPassees())*100
+    saveExamen: function (callback) {
+        var self = this;
+        self.resultats.sauveExamen((self.getNbQuestionsReussies()/self.getNbQuestionsPassees())*100, new Date(),self.getExam().domaines, function (err) {
+            self.session.examEnCours = null;
+            self.session.questionEnCours = null;
+            self.session.questionsPassees = [];
+            callback(err);
         });
-
-        this.session.examEnCours = null;
-        this.session.questionEnCours = null;
-        this.session.questionsPassees = []
     },
 
     /**
      * Abandonne l'examen en cours
      */
-    abortExamen: function() {
-        this.session.examensPasses.push({
-            "date": new Date().toLocaleString(),
-            "note": 0
+    abortExamen: function(callback) {
+        var self = this;
+        self.resultats.abortExamen(new Date(), self.getExam().domaines, function () {
+            self.session.examEnCours = null;
+            self.session.questionEnCours = null;
+            self.session.questionsPassees = [];
+            callback(err, res);
         });
-
-        this.session.examEnCours = null;
-        this.session.questionEnCours = null;
-        this.session.questionsPassees = []
     },
 
     /**
      * Retourne le pourcentage de réussite aux examens
      * @returns {number}
      */
-    getMoyenneExamens: function () {
-        var moyenne = 0;
-        for (id in this.session.examensPasses) {
-            moyenne += this.session.examensPasses[id].note / this.session.examensPasses.length;
-        }
+    getMoyenneExamens: function (callback) {
+        this.resultats.getMoyenneExamens(function (err, moyenne) {
+            console.log(moyenne[0].moyenne);
+            //res = Math.round(moyenne);
+            callback(err, moyenne[0].moyenne);
+        });
+    },
 
-        return Math.round(moyenne);
+    getExamens: function (callback) {
+        this.resultats.getExamens(function (err, examens) {
+            callback(err, examens);
+        });
+    },
+
+    getDernierExam: function (callback) {
+        this.resultats.getDernierExam(function (err, res) {
+            callback(err, res)
+        });
     },
 
     /**
      * Retourne les stats
      * @returns {{nbQuestionsReussies: number, nbQuestionsPassees: Number, noteTestsRapides: *, moyenneExamens: number}|*}
      */
-    getStats: function () {
+    getStats: function (callback) {
+        var self = this;
         stats = {
-            noteTestsRapides: this.session.noteTestsRapides,
-            moyenneExamens: this.getMoyenneExamens(),
-            exams: this.session.examensPasses
+            noteTestsRapides: self.session.noteTestsRapides
         };
 
-        return stats;
+        self.getMoyenneExamens(function(err, moyenne) {
+            if (!err) {
+                stats.moyenneExamens = moyenne;
+
+                self.getExamens(function(err, examens) {
+                    if (!err) {
+                        stats.exams = examens;
+                        //console.log(stats);
+                        callback(stats);
+                    }
+                    else
+                        console.log(err);
+                });
+            }
+            else
+                console.log(err);
+        });
     }
 };
 

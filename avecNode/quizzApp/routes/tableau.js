@@ -13,11 +13,13 @@ router.get('/tableau', function(req, res, next) {
         var dList = domaines.map(function(domaine) { return domaine._id; });
         var domainesString = domaines.map(function(domaine) { return {domaine: domaine._id, nbQuestions: domaine.nbQuestions} });
 
-        var data = { 	'domaines': dList,
+        user.getStats(function (stats) {
+            var data = { 	'domaines': dList,
             'domainesString': domainesString,
-            'stats': user.getStats()};
+            'stats': stats};
+            res.render('tableau',data);
+        });
 
-        res.render('tableau',data);
     });
 });
 

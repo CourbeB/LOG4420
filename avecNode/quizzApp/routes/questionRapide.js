@@ -19,11 +19,13 @@ router.get('/questionRapide', function(req, res, next) {
         Question.getRandomQuestion([], questionsPassees, function(err, q) {
             user.setQuestion(q);
 
-            var data = {
-                "question": q,
-                "modeExamen": false,
-                'stats': user.getStats()
-            };
+            user.getStats(function (stats) {
+                var data = {
+                    "question": q,
+                    "modeExamen": false,
+                    'stats': stats
+                };
+            });
 
             res.render('question', data);
         });

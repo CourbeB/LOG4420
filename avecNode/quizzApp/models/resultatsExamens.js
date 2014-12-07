@@ -52,6 +52,12 @@ module.exports = {
 	getExamens: function (callback) {
 		resultat.find({}, function (err, res) {
 			callback(err, res);
-		})
+		});
+	},
+
+	removeResultats: function (callback) {
+		resultat.find({}).remove().exec(function (err) {
+			callback(err);
+		});
 	}
 }

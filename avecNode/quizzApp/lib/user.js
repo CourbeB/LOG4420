@@ -21,8 +21,11 @@ QuizUser.prototype = {
     /**
      * Efface toutes les données de session
      */
-    raz: function () {
+    raz: function (callback) {
         this.session.destroy();
+        resultats.removeResultats(function (err) {
+            callback(err);
+        });
     },
 
     /**
